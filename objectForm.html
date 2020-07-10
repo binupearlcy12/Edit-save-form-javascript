@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+
+</html>
+
+<body>
+    <div class="row">
+        <form class="m-2 col" id="form">
+            <!-- Id:<select type="text"id="id"onclick="id()"class="form-control m-2"  ><option>1</option><option>2</option><option>3</option></select> -->
+            FirstName:<input type="text" id="fname" class="form-control m-2">
+            LastName:<input type="text" id="lname" class="form-control m-2">
+            Age:<input type="text" id="age" class="form-control m-2">
+            Gender:<input type="radio" id="male" value="male">male
+            <input type="radio" id="female" value="female">female
+            <input type="radio" id="others" value="others">others
+            Balance:<select id="balance" class="form-control m-2">
+                <option>Yes</option>
+                <option>No</option>
+            </select>
+            Membership:<select id="membership" class="form-control m-2">
+                <option>Yes</option>
+                <option>No</option>
+            </select>
+            Productpurchase:<input type="checkbox" id="firstproduct">product1
+            <input type="checkbox" id="secondproduct">product2
+            <input type="checkbox" id="thirdproduct">product3
+        </form>
+        <div class="col">
+            <table id="addtable" class=" table table-bordered"></table>
+        </div>
+    </div>
+    <button id="submit" onclick="submitData()">Onsubmit</button>
+    <script>
+        var tableData = [];
+        function submitData() {
+            var row = new Object();
+            var a = document.getElementById("fname").value;
+            var b = document.getElementById("lname").value;
+            var c = document.getElementById("age").value;
+            if (document.getElementById('male').checked) { var d = document.getElementById("male").value; }
+            else if (document.getElementById('female').checked) { var d = document.getElementById("female").value; }
+            else if (document.getElementById('others').checked) { var d = document.getElementById("others").value; }
+            var e = document.getElementById("balance").value;
+            var f = document.getElementById("membership").value;
+            if (document.getElementById('firstproduct').checked) { var g = document.getElementById("firstproduct").value; }
+            else if (document.getElementById('secondproduct').checked) { var g = document.getElementById("secondproduct").value; }
+            else if (document.getElementById('thirdproduct').checked) { var g = document.getElementById("thirdproduct").value; }
+            row = {
+                firstname: a ? a : 'NA', 
+                lastname: b ? b : 'NA',
+                age: c ? c : 'NA',
+                gender: d ? d : 'NA',
+                balance: e ? e : 'NA',
+                membership: f ? f : 'NA',
+                productpurchase: g ? g : 'NA',
+            }
+            fname.value = "";
+            lname.value = "";
+            age.value = "";
+            male.value = "";
+            female.value = "";
+            others.value = "";
+            balance.value = "";
+            membership.value = "";
+            firstproduct.value = "";
+            secondproduct.value = "";
+            thirdproduct.value = "";
+            tableData.push(row);
+            displayFullTableData();
+        }
+        function saveEdit(i) {
+            displayFullTableData();
+            save();
+            document.getElementById("fname").value = tableData[i].firstname;
+            document.getElementById("lname").value = tableData[i].lastname;
+            document.getElementById("age").value = tableData[i].age;
+            document.getElementById("male").value = tableData[i].male;
+            document.getElementById("female").value = tableData[i].female;
+            document.getElementById("others").value = tableData[i].others;
+            document.getElementById("balance").value = tableData[i].balance;
+            document.getElementById("membership").value = tableData[i].membership;
+            document.getElementById("firstproduct").value = tableData[i].firstproduct;
+            document.getElementById("secondproduct").value = tableData[i].secondproduct;
+            document.getElementById("thirdproduct").value = tableData[i].thirdproduct;
+            tableData.splice(i, 1);
+            console.log(tableData);
+        }
+        function displayFullTableData() {
+            var addtable = document.getElementById("addtable");
+            addtable.innerHTML = "<tr><th>firstname</th><th>lastname</th><th>age</th><th>gender</th><th>balance</th><th>productpurchase</th><th>membership</th></tr>"
+            for (var i = 0; i < tableData.length; i++) {
+                var tr = document.createElement("TR"); 
+                addtable.appendChild(tr);
+                tr.innerHTML = "<td>" + tableData[i].firstname + "</td><td>" + tableData[i].lastname + "</td><td>" + tableData[i].age + "</td><td>" + tableData[i].gender + "</td><td>" + tableData[i].balance + "</td><td>" + tableData[i].productpurchase + "</td><td>" + tableData[i].membership + "</td><td><button onclick='saveEdit(" + i + ")'>Edit</button></td>";
+            }
+        }
+        function save() {
+            document.getElementById("submit").innerHTML = "Update";
+        } 
+    </script>
+</body>
+
+</html>
